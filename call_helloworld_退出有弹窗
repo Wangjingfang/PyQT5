@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+
+"""
+@Date : 2022/10/12 21:59
+
+@Author : Administrator
+
+@File : call_ui.py
+
+@Software : PyCharm
+
+@Desc :
+
+"""
+import sys
+from PyQt5.QtWidgets import QWidget,QPushButton,QToolTip,QMessageBox,QApplication
+from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtGui import QFont, QIcon
+from helloworld import Ui_MainWindow
+
+class Win(Ui_MainWindow, QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setupUi(self)
+
+    def closeEvent(self, QCloseevent):
+        reply = QMessageBox.question(self, "Warning", "exit?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            print("关闭")
+            # self.label
+            QCloseevent.accept()
+        else:
+            QCloseevent.ignore()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = Win()
+    window.setWindowFlag(Qt.Window)
+    window.show()
+
+    sys.exit(app.exec_())
+    
+    # # 获取UIC窗口操作权限
+    # app = QtWidgets.QApplication(sys.argv)
+    # MainWindow = QtWidgets.QMainWindow()
+    # # 调自定义的界面（即刚转换的.py对象）
+    # Ui = helloworld.Ui_MainWindow()
+    # 
+    # Ui.setupUi(MainWindow)
+    # # 显示窗口并释放资源
+    # MainWindow.show()
+    # sys.exit(app.exec())
